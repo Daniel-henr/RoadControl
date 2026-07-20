@@ -1,0 +1,33 @@
+# Node.js
+node_modules/
+dist/
+build/
+out/
+.env
+
+# React Native
+.expo/
+android/
+ios/
+*.apk
+*.aab
+
+# Electron
+dist/
+release/
+
+# Sistema operacional
+.DS_Store
+Thumbs.db
+*.log
+
+# Editores
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Arquivos temporários
+tmp/
+temp/
+*.tmp
