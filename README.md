@@ -43,16 +43,16 @@ Controle virtual para ATS (American Truck Simulator) e ETS2 (Euro Truck Simulato
 
 ## FASE 2 — Protocolo de mensagens (contrato entre mobile e server)
 
-- [ ] Definir o formato da mensagem enviada pelo celular (um objeto por "frame" com todos os eixos/botões juntos, ou uma mensagem por evento)
-- [ ] Criar o arquivo de tipos dentro de `shared/types` descrevendo a "forma" da mensagem
-- [ ] Definir o tipo TypeScript para o payload do volante (campo, tipo do valor, intervalo)
-- [ ] Definir o tipo TypeScript para o payload dos pedais (acelerador e freio)
-- [ ] Definir o tipo TypeScript para os botões alternadores (toggle), representando estado atual vs. evento de clique
-- [ ] Definir o tipo TypeScript para o botão de buzina (hold), diferenciando-o do toggle na representação de dados
-- [ ] Definir o tipo TypeScript para os vidros (tratados como botões comuns)
-- [ ] Unir tudo num tipo "mensagem geral" esperado pelo server
-- [ ] Importar esse tipo compartilhado dentro de `server/src/index.ts`
-- [ ] Substituir o `JSON.parse(data.toString())` solto por uma validação que confirme que o payload corresponde ao tipo esperado (uso de "type guards" em TypeScript)
+- [x] Definir o formato da mensagem enviada pelo celular (um objeto por "frame" com todos os eixos/botões juntos, ou uma mensagem por evento)
+- [x] Criar o arquivo de tipos dentro de `shared/types` descrevendo a "forma" da mensagem
+- [x] Definir o tipo TypeScript para o payload do volante (campo, tipo do valor, intervalo)
+- [x] Definir o tipo TypeScript para o payload dos pedais (acelerador e freio)
+- [x] Definir o tipo TypeScript para os botões alternadores (toggle), representando estado atual vs. evento de clique
+- [x] Definir o tipo TypeScript para o botão de buzina (hold), diferenciando-o do toggle na representação de dados
+- [x] Definir o tipo TypeScript para os vidros (tratados como botões comuns)
+- [x] Unir tudo num tipo "mensagem geral" esperado pelo server
+- [x] Importar esse tipo compartilhado dentro de `server/src/index.ts`
+- [x] Substituir o `JSON.parse(data.toString())` solto por uma validação que confirme que o payload corresponde ao tipo esperado (uso de "type guards" em TypeScript)
 
 ---
 
