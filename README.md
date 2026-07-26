@@ -58,16 +58,16 @@ Controle virtual para ATS (American Truck Simulator) e ETS2 (Euro Truck Simulato
 
 ## FASE 3 — Integração com o vJoy
 
-- [ ] Estudar a API do pacote `vjoy` (métodos para criar device, setar eixo, setar botão etc.)
-- [ ] Diferenciar "criar o device" de "adquirir/acquire o device"
-- [ ] Mover a criação do device (`vJoyDevice.create`) para dentro de `wss.on('connection')`, executando apenas quando um cliente conecta
-- [ ] Armazenar a referência do device criado numa variável acessível também pelos handlers de `message` e `close`
-- [ ] Implementar a liberação/reset do device dentro do `ws.on('close')`
-- [ ] Escrever uma função que traduza o valor de eixo do payload (ex.: volante, de -1 a 1) para o intervalo aceito pelo vJoy
-- [ ] Escrever uma função que traduza o estado de um botão do payload para a chamada correspondente do vJoy (pressionado/solto)
-- [ ] Conectar o payload validado (Fase 2) a essas funções de tradução, dentro do `ws.on('message')`
-- [ ] Testar manualmente: enviar uma mensagem com valor de eixo e verificar, via monitor de joystick do Windows, se o vJoy reflete o valor
-- [ ] Repetir o teste para um botão
+- [x] Estudar a API do pacote `vjoy` (métodos para criar device, setar eixo, setar botão etc.)
+- [x] Diferenciar "criar o device" de "adquirir/acquire o device"
+- [x] confirmar que o device é criado uma única vez na subida do servidor, conforme decisão de arquitetura
+- [x] Armazenar a referência do device criado numa variável acessível também pelos handlers de `message` e `close`
+- [x] Implementar a liberação/reset do device dentro do `ws.on('close')`
+- [x] Escrever uma função que traduza o valor de eixo do payload (ex.: volante, de -1 a 1) para o intervalo aceito pelo vJoy
+- [x] Escrever uma função que traduza o estado de um botão do payload para a chamada correspondente do vJoy (pressionado/solto)
+- [x] Conectar o payload validado (Fase 2) a essas funções de tradução, dentro do `ws.on('message')`
+- [x] Testar manualmente: enviar uma mensagem com valor de eixo e verificar, via monitor de joystick do Windows, se o vJoy reflete o valor
+- [x] Repetir o teste para um botão
 
 ---
 

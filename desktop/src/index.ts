@@ -13,7 +13,7 @@ const { vJoy, vJoyDevice } = pkg;
 const wss = new WebSocketServer({ port: 5555 });
 console.log("Server created on port 5555");
 
-// vJoy device created
+// vJoy device created once when the server starts (not per client connection)
 const device = vJoyDevice.create(1);
 
 // Type guard: checks if the received payload matches the Button shape
@@ -63,6 +63,31 @@ function isAxis(payload: unknown): payload is Axis {
   }
 }
 
+// Converts a 0-100 protocol value into the vJoy axis range (1 to 32768)
+function valueConvert(
+  value: number,
+  inMax: number,
+  outMin: number,
+  outRange: number,
+): number {
+  const res = Math.round((value / inMax) * outRange) + outMin;
+
+  return res;
+}
+
+// Returns every axis and button to a neutral state.
+// Used when a client disconnects or the connection errors out,
+// so the vJoy device never gets stuck holding the last received input.
+function resetDevice() {
+  const wheelReset = valueConvert(50, 100, 1, 32767);
+  const pedalsReset = valueConvert(0, 100, 1, 32767);
+
+  device?.resetButtons();
+  device?.axes.X.set(wheelReset); // steering axis
+  device?.axes.Z.set(pedalsReset); // throttle axis
+  device?.axes.Y.set(pedalsReset); // brake axis
+}
+
 // Client connected
 wss.on("connection", (ws) => {
   console.log("Client connected!");
@@ -73,9 +98,29 @@ wss.on("connection", (ws) => {
       const payload = JSON.parse(data.toString());
 
       if (isButton(payload)) {
-        console.log('Button message received: ', payload);
+        device?.buttons[payload.id]?.set(payload.pressed);
+        console.log("Button message received: ", payload);
       } else if (isAxis(payload)) {
-        console.log('Axis message received: ', payload);
+        const convertedValue = valueConvert(payload.value, 100, 1, 32767);
+        console.log("Axis message received: ", payload);
+
+        // Maps the protocol's axis name to the actual vJoy axis in use.
+        // Names don't match 1:1 with vJoy's own labels (X/Y/Z) because
+        // the driver's default axis assignment was confirmed by testing
+        // in-game, not by the axis names themselves.
+        switch (payload.axis) {
+          case "steering":
+            device?.axes.X.set(convertedValue);
+            break;
+
+          case "throttle":
+            device?.axes.Z.set(convertedValue);
+            break;
+
+          case "brake":
+            device?.axes.Y.set(convertedValue);
+            break;
+        }
       } else {
         console.log("Invalid message!", payload);
       }
@@ -92,6 +137,8 @@ wss.on("connection", (ws) => {
     console.error("Connection closed!");
     console.error(`Code: ${code}`);
     console.error(`Reason: ${context}`);
+
+    resetDevice();
   });
 
   // Error on connection
@@ -100,5 +147,7 @@ wss.on("connection", (ws) => {
     console.log(`Error: ${error.message}`);
     console.log(`Code: ${error.cause}`);
     console.log(`Stack: ${error.stack}`);
+
+    resetDevice();
   });
 });
