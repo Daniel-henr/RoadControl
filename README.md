@@ -73,11 +73,11 @@ Controle virtual para ATS (American Truck Simulator) e ETS2 (Euro Truck Simulato
 
 ## FASE 4 — Comportamento específico dos controles (lógica de servidor ou de app)
 
-- [ ] Definir onde vive a lógica de retorno automático do volante ao soltar (mobile enviando o valor gradual, ou server interpretando ausência de update como "soltou")
-- [ ] Mesma definição para o retorno instantâneo dos pedais a 0
-- [ ] Definir como o servidor diferencia um "clique" de toggle de um "hold" da buzina (resolvido no payload do mobile ou inferido pelo server)
-- [ ] Implementar a lógica de toggle no server (ou confirmar que já vem pronta do mobile)
-- [ ] Implementar a lógica de hold da buzina no server (ou confirmar que já vem pronta do mobile)
+- [x] Definir onde vive a lógica de retorno automático do volante ao soltar (mobile enviando o valor gradual, ou server interpretando ausência de update como "soltou")
+- [x] Mesma definição para o retorno instantâneo dos pedais a 0
+- [x] Definir como o servidor diferencia um "clique" de toggle de um "hold" da buzina (resolvido no payload do mobile ou inferido pelo server)
+- [x] Implementar a lógica de toggle no server (ou confirmar que já vem pronta do mobile)
+- [x] Implementar a lógica de hold da buzina no server (ou confirmar que já vem pronta do mobile)
 
 ---
 
